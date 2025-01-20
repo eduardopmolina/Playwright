@@ -36,7 +36,7 @@ export const CODILITY_SELECTORS = {
   errorMessageEmptyCredentials: 'Empty Credentials',
   validloginmessage: "Valid Login!",
   emptyemail: "Email is required",
-  emptypwd: "Password is required",
+  emptypwd: "Password is required", 
 };
 
 export const INVALID_CREDENTIALS = {
