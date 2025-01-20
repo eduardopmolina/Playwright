@@ -1,0 +1,6 @@
+projectKey=Fuse01
+serverUrl=http://localhost:9000
+serverVersion=10.6.0.92116
+dashboardUrl=http://localhost:9000/dashboard?id=Fuse01
+ceTaskId=30d51b0c-a09d-4d5e-8874-82eb97d2934a
+ceTaskUrl=http://localhost:9000/api/ce/task?id=30d51b0c-a09d-4d5e-8874-82eb97d2934a

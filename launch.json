@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "request": "attach",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "browse-lite",
+            "request": "attach",
+            "name": "Browse Lite: Attach"
+        },
+        {
+            "type": "chrome",
+            "name": "https://dev-fraud.flo.io/",
+            "request": "launch",
+            "url": "https://dev-fraud.flo.io/"
+        }
+    ]
+}
