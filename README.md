@@ -48,3 +48,18 @@ Continuous Feedback Loop: Use insights from Shift Right testing to improve Shift
 Automation Across the SDLC: Automate testing at every stage, from development to production.
 Cross-Functional Teams: Foster collaboration between developers, testers, and operations to ensure a holistic approach.
 By integrating both strategies, you can achieve a balance of early defect prevention and real-world validation, ensuring high-quality software delivery.
+
+
+The Task From RAI - 
+Ria Money Transfer - Send Money Online to Over 190 Countries Instantly
+
+User Story: As a customer, I would like to enter the destination country and transfer amount to get the exchange rate and fee.
+
+https://www.riamoneytransfer.com/en-us/
+
+a. Provide strategy on how to test this website.
+
+b. Create the test cases for pre-order entry form.
+
+c. Please list down any defects found on this module.
+
