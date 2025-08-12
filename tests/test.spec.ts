@@ -1,66 +1,36 @@
-import { test, expect } from "@playwright/test";
-import { CODILITY_URL, CODILITY_USER_EMAIL, CODILITY_USER_PASSWORD, CODILITY_SELECTORS, INVALID_CREDENTIALS } from "./variables";
+import { test, expect } from '@playwright/test';
 
-// Test case for valid login credentials
-test('Valid login', async ({ page }) => {
-    await page.goto(CODILITY_URL); // Navigate to the login page
-    await page.fill(CODILITY_SELECTORS.emailInput, CODILITY_USER_EMAIL); // Enter valid email
-    await page.fill(CODILITY_SELECTORS.passwordInput, CODILITY_USER_PASSWORD); // Enter valid password
-    await page.click(CODILITY_SELECTORS.loginButton); // Click the login button
-    // Assert that a specific element visible after login is displayed. This is more reliable than checking for text.
-    await expect(page.getByText(CODILITY_USER_EMAIL)).toBeVisible(); // Check for a welcome message or user-specific element 
+const baseURL = 'https://www.riamoneytransfer.com/en-us/';
+
+
+test('Outer test', async ({ page }) => {
+  await page.goto('https://www.riamoneytransfer.com/en-us/');
+  await expect(page.locator('h1')).toBeVisible(); // Moved the assertion directly into the outer test
+  await page.locator('.sc-f8be054-1 iXZhrs').click(); // Example selector, replace with actual one
+//   await page.getByText('Get Started').click(); // Example interaction, replace with actual selector
 });
 
+test('Valid login and send to functions', async ({ page }) => {
+  const validUsername = process.env.VALID_USERNAME || '';
+  const validPassword = process.env.VALID_PASSWORD || '';
 
-// Test case for invalid login with incorrect email
-test('Invalid login - incorrect email', async ({ page }) => {
-    await page.goto(CODILITY_URL); // Navigate to the login page
-    await page.fill(CODILITY_SELECTORS.emailInput, INVALID_CREDENTIALS.invalidEmail); // Enter an invalid email
-    await page.fill(CODILITY_SELECTORS.passwordInput, CODILITY_USER_EMAIL); // Enter a  password
-    await page.click(CODILITY_SELECTORS.loginButton); // Click the login button
-    // Expect an error message specific to incorrect email to be visible
-    await expect(page.getByText(CODILITY_SELECTORS.errorMessageText)).toBeVisible(); 
-});
+  // Navigate to the homepage
+ test.setTimeout(20000); // Example: 20 seconds for this test only
+  await page.goto(baseURL);
+  // Example: Interact with "Send to" functions
+  // Replace selectors with actual ones from your page
+  // For example, click "Send Money" dropdown
+  test.setTimeout(200000000); // Example: 20 seconds for this test only
+  await page.click('selector-for-send-to-dropdown');  // Replace with actual selector
+  // Choose a specific method or option
+  await page.click('selector-for-send-to-option');    // Replace with actual selector
 
+  // Wait for the "Get Started" button to appear
+  const getStartedButton = page.locator('button:has-text("Get Started")');
+  await expect(getStartedButton).toBeVisible();
 
-// Test case for invalid login with incorrect password
-test('Invalid login - incorrect password', async ({ page }) => {
-    await page.goto(CODILITY_URL); // Navigate to the login page
-    await page.fill(CODILITY_SELECTORS.emailInput, CODILITY_USER_EMAIL); // Enter a valid email
-    await page.fill(CODILITY_SELECTORS.passwordInput, ""); // Enter an invalid password (empty)
-    await page.click(CODILITY_SELECTORS.loginButton); // Click the login button
-    // Expect an error message specific to an empty password field.
-    await expect(page.getByText(CODILITY_SELECTORS.emptypwd)).toBeVisible();
-});
+  // Optionally click the "Get Started" button
+  await getStartedButton.click();
 
-
-// Test case for invalid login with empty email and password
-test('Invalid login - empty credentials', async ({ page }) => {
-    await page.goto(CODILITY_URL); // Navigate to the login page
-    // Clear any default values in input fields to ensure empty credentials
-    await page.fill(CODILITY_SELECTORS.emailInput, ""); // Clear email input
-    await page.fill(CODILITY_SELECTORS.passwordInput, ""); // Clear password input
-    await page.click(CODILITY_SELECTORS.loginButton); // Click the login button
-    // Expect error messages for both empty email and password.
-    await expect(page.getByText(CODILITY_SELECTORS.emptyemail)).toBeVisible();
-    await expect(page.getByText(CODILITY_SELECTORS.emptypwd)).toBeVisible();
-});
-
-// Test case for login using Tab and Enter keys for navigation
-test('Login using Tab and Enter keys', async ({ page }) => {
-    await page.goto(CODILITY_URL); // Navigate to the login page
-    await page.focus(CODILITY_SELECTORS.emailInput); // Focus on the email input field
-    await page.keyboard.type(CODILITY_USER_EMAIL); // Enter the valid email
-    await page.keyboard.press('Tab'); // Press Tab to move to the password field
-    await page.keyboard.type(CODILITY_USER_EMAIL); // Enter the valid password
-    await page.keyboard.press('Tab'); // Press Tab to potentially move to the login button or another interactive element.
-    await page.keyboard.press('Enter'); // Press Enter to submit credentials (simulating clicking the login button)
-
-    // Wait for page navigation after login or for a specific element to appear.
-    await page.waitForNavigation();  // If login results in navigation
-    // OR use the following if no navigation occurs
-    // await page.waitForSelector(CODILITY_SELECTORS.dashboardElement); // Wait for an element that confirms login
-
-    // Assert that a user-specific element or welcome message is visible.
-    await expect(page.getByText(CODILITY_USER_EMAIL)).toBeVisible();  
+  // Add further assertions as needed
 });
