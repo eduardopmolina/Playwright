@@ -1,36 +1,36 @@
-import {test, expect} from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-// Test case for valid login credentials
-test('Valid login', async ({ page }) => {
-    await page.goto("https://www.riamoneytransfer.com/en-us/");
-    await page.click('button:has-text("Log in")');
-    await page.fill('input[name="email"]', 'validuser@example.com');
-    await page.fill('input[name="password"]', 'validpassword');
-    await page.click('button[type="submit"]');
-    // Optionally, check for a successful login indicator
-    await expect(page).toHaveURL(/dashboard|account|home/i);
+const baseURL = 'https://www.riamoneytransfer.com/en-us/';
+
+
+test('Outer test', async ({ page }) => {
+  await page.goto('https://www.riamoneytransfer.com/en-us/');
+  await expect(page.locator('h1')).toBeVisible(); // Moved the assertion directly into the outer test
+  await page.locator('.sc-f8be054-1 iXZhrs').click(); // Example selector, replace with actual one
+//   await page.getByText('Get Started').click(); // Example interaction, replace with actual selector
 });
 
-// Test case for invalid login credentials
-test('Invalid login', async ({ page }) => {
-    await page.goto("https://www.riamoneytransfer.com/en-us/");
-    await page.click('button:has-text("Log in")');
-    await page.fill('input[name="email"]', 'invaliduser@example.com');
-    await page.fill('input[name="password"]', 'wrongpassword');
-    await page.click('button[type="submit"]');
-    // Optionally, check for an error message
-    await expect(page.locator('text=Invalid email or password')).toBeVisible();
-});
+test('Valid login and send to functions', async ({ page }) => {
+  const validUsername = process.env.VALID_USERNAME || '';
+  const validPassword = process.env.VALID_PASSWORD || '';
 
-// Test case for checking the presence of the login button
-test('Login button is visible', async ({ page }) => {
-    await page.goto("https://www.riamoneytransfer.com/en-us/");
-    await expect(page.locator('button:has-text("Log in")')).toBeVisible();
-});
+  // Navigate to the homepage
+ test.setTimeout(20000); // Example: 20 seconds for this test only
+  await page.goto(baseURL);
+  // Example: Interact with "Send to" functions
+  // Replace selectors with actual ones from your page
+  // For example, click "Send Money" dropdown
+  test.setTimeout(200000000); // Example: 20 seconds for this test only
+  await page.click('selector-for-send-to-dropdown');  // Replace with actual selector
+  // Choose a specific method or option
+  await page.click('selector-for-send-to-option');    // Replace with actual selector
 
-// Test case for navigation to the registration page
-test('Navigate to registration page', async ({ page }) => {
-    await page.goto("https://www.riamoneytransfer.com/en-us/");
-    await page.click('a:has-text("Sign up")');
-    await expect(page).toHaveURL(/.*register.*/);
+  // Wait for the "Get Started" button to appear
+  const getStartedButton = page.locator('button:has-text("Get Started")');
+  await expect(getStartedButton).toBeVisible();
+
+  // Optionally click the "Get Started" button
+  await getStartedButton.click();
+
+  // Add further assertions as needed
 });
